@@ -22,3 +22,11 @@ The [Declarative Setup](https://argo-cd.readthedocs.io/en/stable/operator-manual
     # Install the root app
     helm template apps/ | kubectl apply -f -
     ```
+3. Port-forward
+    ```bash
+    kubectl port-forward -n argocd service/argo-cd-argocd-server 8080:443
+    ```
+4. Get initial admin password
+    ```bash
+    kubectl -n argocd get secrets argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d
+    ```
