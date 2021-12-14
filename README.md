@@ -16,5 +16,9 @@ The [Declarative Setup](https://argo-cd.readthedocs.io/en/stable/operator-manual
     ```
 2. Bootstrap the cluster
     ```bash
-    helm install argo-cd charts/argo-cd
+    kubectl create ns argocd
+    # Install Argo CD
+    helm install argo-cd charts/argo-cd -n argocd
+    # Install the root app
+    helm template apps/ | kubectl apply -f -
     ```
