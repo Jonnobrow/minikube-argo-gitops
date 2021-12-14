@@ -1,0 +1,16 @@
+# yamllint disable-file
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: petstore
+  namespace: petstore
+spec:
+  project: default
+  destination:
+    namespace: petstore
+    server: https://kubernetes.default.svc
+  source:
+    path: deployments/petstore
+    repoURL: {{ .Values.spec.source.repoURL }}
+    targetRevision: HEAD

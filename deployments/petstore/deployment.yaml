@@ -1,0 +1,27 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: petstore
+  name: petstore
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: petstore
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: petstore
+    spec:
+      containers:
+        - image: swaggerapi/petstore:1.0.6
+          name: petstore
+          ports:
+            - containerPort: 8080
+          resources: {}
+status: {}
