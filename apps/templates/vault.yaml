@@ -1,0 +1,20 @@
+# yamllint disable-file
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: vault
+  namespace: argocd
+spec:
+  project: default
+  source:
+    path: deployments/vault
+    repoURL: {{.Values.spec.source.repoURL}}
+    targetRevision: HEAD
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: vault
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
