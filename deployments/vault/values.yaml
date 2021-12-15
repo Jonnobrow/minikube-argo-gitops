@@ -2,8 +2,24 @@ global:
   tlsDisable: false
 
 server:
-  ha:
+
+  extraEnvironmentVars:
+    VAULT_CACERT: /vault/userconfig/tls/vault.ca
+
+  extraVolumes:
+    - type: secret
+      name: tls
+
+  standalone:
     enabled: true
-    replicas: 1
-    raft:
-      enabled: true
+    config: |
+      listener "tcp" {
+        address = "[::]:8200"
+        cluster_address = "[::]:8201"
+        tls_cert_file = "/vault/userconfig/tls/vault.crt"
+        tls_key_file  = "/vault/userconfig/tls/vault.key"
+        tls_client_ca_file = "/vault/userconfig/tls/vault.ca"
+      }
+      storage "file" {
+        path = "/vault/data"
+      }
